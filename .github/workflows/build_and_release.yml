@@ -6,6 +6,17 @@ name: "Build, Test & Release"
 # proper validation etc before being accepted.
 on:
   workflow_call:
+    inputs:
+      jdk_version:
+        description: 'The JDK we should use when building'
+        default: '11'
+        required: false
+        type: string
+      jdk_distribution:
+        description: 'The JDK distribution we should use when building'
+        default: 'zulu'
+        required: false
+        type: string
 
 jobs:
 
@@ -17,11 +28,11 @@ jobs:
     - name: "Checkout sources"
       uses: actions/checkout@v3
 
-    - name: "Setup Java"
+    - name: Set up JDK ${{ inputs.jdk_version }} using distribution ${{ inputs.jdk_distribution }} 
       uses: actions/setup-java@v3
       with:
-        distribution: 'zulu'
-        java-version: 11
+        java-version: ${{ inputs.jdk_version }}
+        distribution: ${{ inputs.jdk_distribution }}
         server-id: ossrh
         server-username: OSSRH_USERNAME
         server-password: OSSRH_PASSWORD
