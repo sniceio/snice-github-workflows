@@ -16,6 +16,11 @@ on:
         default: '11'
         required: false
         type: string
+      jdk_distribution:
+        description: 'The JDK distribution we should use when building'
+        default: 'zulu'
+        required: false
+        type: string
 
 jobs:
   build:
@@ -24,11 +29,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK ${{ inputs.jdk_version }}
+    - name: Set up JDK ${{ inputs.jdk_version }} using distribution ${{ inputs.jdk_distribution }} 
       uses: actions/setup-java@v3
       with:
         java-version: ${{ inputs.jdk_version }}
-        distribution: 'zulu'
+        distribution: ${{ inputs.jdk_distribution }}
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
