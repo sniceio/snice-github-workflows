@@ -9,7 +9,7 @@
 name: "Build & Test"
 
 on:
-  workflow_dispatch:
+  repository_dispatch:
     inputs:
       jdk_version:
         description: 'The JDK we should use when building'
