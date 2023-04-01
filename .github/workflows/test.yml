@@ -21,6 +21,11 @@ on:
         default: 'zulu'
         required: false
         type: string
+      message:
+        description: 'Random Message'
+        default: 'Hello World'
+        required: false
+        type: string
 
         # permissions:
         # id-token: write
@@ -33,5 +38,7 @@ jobs:
 
     steps:
     - name: Run Silly Thing
-      run: echo "Silly thing running"
+      run: |
+        echo "Silly thing running"
+        echo ${{ message }}
 
